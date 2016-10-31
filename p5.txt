@@ -13,20 +13,41 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 2. Observa que las tramas capturadas corresponden a una sesión SIP con Ekiga, un cliente de VoIP para GNOME. Responde a las siguientes cuestiones:
  ** ¿Cuántos paquetes componen la captura?
+
+        -- 954 paquetes
+
  ** ¿Cuánto tiempo dura la captura?
+
+        -- 56.149345 segundos
+
  ** ¿Qué IP tiene la máquina donde se ha efectuado la captura? ¿Se trata de una IP pública o de una IP privada? ¿Por qué lo sabes?
 
+        -- La IP donde se ha efectuado la captura es en la 192.168.1.34. Esto lo sabemos porque
+        es la unicca direccion que aparece en todos los paquetes, ya sea como emisor o receptor.
+        Al mirar la direccion de nuestra maquina vemos que es la 212.128.254.173; al observar y 
+        y comparar la direccion que aparece en la captura vemos que es otra diferente. Esto nos
+        indica que nos encontramos ante una direccion privada.
 
 3. Antes de analizar las tramas, mira las estadísticas generales que aparecen en el menú de Statistics. En el apartado de jerarquía de protocolos (Protocol Hierarchy) se puede ver el porcentaje del tráfico correspondiente al protocolo TCP y UDP.
  ** ¿Cuál de los dos es mayor? ¿Es esto consistente con una aplicación que transmite en tiempo real?
+        -- La mayor es UDP con un 96.2% frente a TCP que supone solo un 2.1% del trafico. Ademas,
+        sabemos que UDP es mas rapido y seguro para transmitir en tiempo real, aunque no asegure 
+        que lleguen los paquetes en orden y sin errores. Aun asi, verificamos que se trata de una
+        transmision en tiempo real.
+
  ** ¿Qué otros protocolos podemos ver en la jerarquía de protocolos?
 
+        -- DNS, TCP, HTTP, CALSSIC-STUN, SIP, RTP, H.216 e ICMP
 
 4. Observa por encima el flujo de tramas en el menú de Statistics en IO Graphs. La captura que estamos viendo incluye desde la inicialización (registro) de la aplicación hasta su finalización, con una llamada entremedias.
  ** Filtra por sip para conocer cuándo se envían paquetes SIP. ¿En qué segundos tienen lugar esos envíos?
+
+        -- En los segundos 7, 14, 16, 38, 39, 55.
+
  ** Y los paquetes con RTP, ¿cuándo se envían?
 
-
+        -- En los segundos 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30, 
+          31, 32, 33, 34, 35, 36, 37, 38
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
