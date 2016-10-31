@@ -53,7 +53,12 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 5. Analiza las primeras cuatro tramas de la captura nada más arrancar Ekiga.
  ** ¿Qué servicio es el utilizado en estas tramas?
+        
+        -- DNS
+
  ** ¿Cuál es la dirección IP del servidor de nombres del ordenador que ha lanzado Ekiga?
+
+        -- 
  ** ¿Qué dirección IP (de ekiga.net) devuelve el servicio de nombres?
  ** ¿Por qué se pide también para 35.162.64.86.in-addr.arpa?
 
