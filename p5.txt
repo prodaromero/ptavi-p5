@@ -190,43 +190,105 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Cuántos bits/segundo estamos enviando?
 
         -- Como cada paquete contiene 214 bytes y cada paquete se envía cada 20ms,
-            cada segundo se envian 640.000 bytes/segundo.
+            cada segundo se envian 85.600 bps.
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una opción RTP. Empecemos mirando los flujos RTP.
  ** ¿Cuántos flujos hay? ¿por qué?
+
+        -- Hay dos flujos, uno que sale del puerto 5014 y otro del puerto 5010.
+            en el primero se envia video (h261) y en el segundo se envia audio 
+            (g711A)
+
  ** ¿Cuántos paquetes se pierden?
+
+        -- No se pierden paquetes (lost: 0.0%)
+
  ** ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el valor de delta?
+
+        -- Valor máximo puerto 5014: 1290.479. 
+           Valor máximo puerto 5010: 1290.444.
+           Representa la maxima diferencia entre llegada paquetes consecutivos 
+           en milisegundos (ms)
+
  ** ¿Cuáles son los valores de jitter (medio y máximo)? ¿Qué quiere decir eso? ¿Estamos ante una conversación de calidad?
 
+        -- Puerto 5014. Max Jitter: 183.096. Mean Jitter: 153.240
+           Puerto 5010. Max Jitter: 119.635. Mean Jitter: 42.500
+           Estos valores nos informan sobre el retardo de los mensajes.
+           Al ser tan elevados nos indican que no estamos ante una buena llamada.
 
 13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony -> RTP -> Stream Analysis.
  ** ¿Cuánto valen el delta y el jitter para el primer paquete que ha llegado?
+
+        -- Para el primer paquete ambos valores valen 0 puesto que es el primer
+            paquete que se envía.
+
  ** ¿Podemos saber si éste es el primer paquete que nos han enviado?
+
+        -- No podemos afirmar que es el primer paquete que nos han enviado pero 
+            si que es el primero que hemos recibido ya que posee el menor nº de 
+            identificador de paquete (111).
+
  ** Los valores de jitter son menores de 10ms hasta un paquete dado. ¿Cuál?
+
+        -- A partir del paquete 247 (incluido) el jitter aumenta drasticamente.
+
  ** ¿A qué se debe el cambio tan brusco del jitter?
+
+        -- A que se ha producido un cambio en la delta, es decir, se ha producido
+            un cambio en el tiempo de transmision de paquetes que ha producido un
+            retardo y un aumento del jitter.
+
  ** ¿Es comparable este cambio con el tiempo desde la recepción del paquete anterior? ¿Por qué?
+
+        -- Si, ya que el jitter esta estrechamente relacionado con la delta. El 
+            jilter depende de la delta.
+
  ** ¿Cuál es la dependencia entre el tiempo transcurrido desde el paquete anterior y el valor de jitter?
 
+        -- Cuando aumenta la delta (el retardo entre paquetes) aumenta el jitter.
 
 14. En Telephony selecciona el menú VoIP calls. Verás que se lista la llamada de voz IP capturada en una ventana emergente. Selecciona esa llamada y pulsa el botón Graph.
  ** ¿Cuánto dura la conversación?
+
+        -- Miramos el inicio de la conversacion (14.426s.) y el final (39.229s) 
+            y los restamos para hallar el tiempo total de la llamada: 24.80289s.
+
  ** ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
 
+        -- Como vemos en la grafica, hay dos flujos, uno de audio(g711A) y otro 
+            de video (h261).
+            No hay CSRCs.
 
 15. Identifica la trama donde se finaliza la conversación.
  ** ¿Qué método SIP se utiliza?
+
+        -- Utiliza el metodo Request: BYE.
+
  ** ¿En qué trama(s)?
+
+        -- en la 924, 925, 927, 933.
+
  ** ¿Por qué crees que se envía varias veces?
 
+        -- Se envian varias veces para asegurar que el mensaje llega. Se envian hasta
+            recibir el mensaje 200 OK.
 
 16. Finalmente, se cierra la aplicación de VozIP.
  ** ¿Por qué aparece una instrucción SIP del tipo REGISTER?
+
+        -- Para borrar (dar de baja) el usuario mediante un remove 1 binding.
+
  ** ¿En qué trama sucede esto?
+
+        -- En la 950 y en la 952.
+
  ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
 
-
+        -- Porque en el primero el Expires era igual a 3600 y en el último el 
+            Expires toma valor 0.
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
