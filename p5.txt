@@ -301,16 +301,40 @@ Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.ne
 
 17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
  ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
+
+        -- Es necesario la utilizacion de DNS para la asignacion de nombres a las
+            IP, pero no los STUN, ya que utilizamos IP publica.
+
  ** ¿Son diferentes el registro y la descripción de la sesión?
 
+        -- No, son iguales.
 
 18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
  ** ¿Cuántos flujos tenemos?
+
+        -- Dos flujos, los dos de audio (g711A).
+
  ** ¿Cuál es su periodicidad?
+
+        -- Como vemos, el tiempo entre paquetes es de 20ms.
+
  ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
+
+        -- Deltas:
+                Valor máximo puerto 25830: 30.614. 
+                Valor máximo puerto 5062: 60.991.
+           Jitter:
+                Valor máximo puerto 25830: 5.076. 
+                Valor máximo puerto 5062: 6.376.
+
  ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
+
+        -- Si, si nos vamos al menu Analyzer, en RTP, seleccionamos los dos paquetes
+            y le damos a Play Streams, podemos reproducir el auido de la conversacion.
+
  ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net?
 
+        -- Si, un servicio de audio.
 
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
